@@ -10,7 +10,6 @@
 import * as THREE from '../../lib/three.module.js'
 import {OrbitControls} from '../lib/OrbitControls.module.js'
 import {GLTFLoader} from '../lib/GLTFLoader.module.js'
-import {loadRoad} from './helpers.js'
 
 // Variables de consenso
 let renderer, scene, camera;
@@ -87,7 +86,7 @@ async function loadScene() {
     //     }
     // );
 
-    loadModel("../models/proyecto/buildings/low_buildingE.glb", scene);
+    // loadModel("../models/proyecto/buildings/low_buildingE.glb", scene);
 
     let m1 = scene.getObjectByName("asd")
     // let m2 = m1.clone()
