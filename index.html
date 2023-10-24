@@ -4,13 +4,12 @@
     Plantilla de carga de aplicaciones Threejs
 -->
 <html lang="es">
-	<style>
-		@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
-		</style>	
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 <head>
     <meta charset="utf-8">
-    <title>Aplicacion en Threejs</title>
+    <title>Asset Builder</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
         body {
             background-color: white;
             margin: 0px;
@@ -26,12 +25,21 @@
             z-index: 1;
         }
     </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+
 </head>
 
 <body>
-	<div id="toolbar" style="height: 40px">
-		<input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" />
+
+	<div id="toolbar" style="height: 40px" class="bg-[#28292e] p-1 text-[#b4b5bd] align-middle shadow z-100 relative">
+
+        <button class="h-8 aspect-square rounded-sm hover:bg-[#3e3f44] bg-[#37383d]" title="Import GLTF file">
+            <i class="fa fa-cubes" ></i>
+        </button>
+
+
 	</div>
+
     <div id="container"></div>
     <script type="importmap">
         { "imports": { "three": "./lib/three.module.js" } }

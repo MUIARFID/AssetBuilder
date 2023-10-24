@@ -1,6 +1,7 @@
 import {GLTFLoader} from '../lib/GLTFLoader.module.js'
 import * as THREE from '../../lib/three.module.js'
-export {list_library, loadModel};
+export {list_library, importModel};
+import {modelLibrary} from './globals.js';
 
 function list_library(path = '../models/library/library.json'){
     // request library json file
@@ -15,21 +16,28 @@ function list_library(path = '../models/library/library.json'){
     return json;
 }
 
-function loadModel(path, scene) {
+function importModel(data, name = "test_load") {
     const loaderGLTF = new GLTFLoader();
-    let model;
-    loaderGLTF.load(path,
-        function (gltf) {
-            model = gltf.scene;
-            // console.log(gltf);
-            for(let node of gltf.scene.children){
-                for(let mesh of node.children){
-                    mesh.material.metalness = 0;
-                }
-            }
-            model.name = "asd"
-            scene.add(model)
+    loaderGLTF.parse(data, '',
+        (gltf) => {
+            let model = gltf.scene;
+            // for(let node of gltf.scene.children){
+            //     for(let mesh of node.children){
+            //         mesh.material.metalness = 0;
+            //     }
+            // }
+            console.log(model);
+            addToModelLibrary(model, name);
+            // model.name = "asd"
+            // scene.add(model)
             // onLoad(scene);
+        },
+        (e) => {
+            console.log(e);
         }
     );
 }
+
+function addToModelLibrary(model, name){
+    modelLibrary[name] = model;
+}   
