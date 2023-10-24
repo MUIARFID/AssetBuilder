@@ -1,15 +1,12 @@
-/**
- * Escena.js
- * 
- * Seminario 2 de GPC: pintar una escena básica con transformaciones, animacion y modelos importados
- * 
- * @author <miedgo@upv.es>,2023
-*/
-
 // Modulos necesarios
 import * as THREE from '../../lib/three.module.js'
 import {OrbitControls} from '../lib/OrbitControls.module.js'
-import {GLTFLoader} from '../lib/GLTFLoader.module.js'
+import { list_library } from './helpers.js';
+import './ui.js'
+
+
+const gridHelper = new THREE.GridHelper( 1000, 100, 0xcc7a00, 0x444444);
+
 
 // Variables de consenso
 let renderer, scene, camera;
@@ -27,11 +24,14 @@ loadScene()
 render()
 
 function init() {
+
+    console.log(list_library())
+
     // Motor de render
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.getElementById('container').appendChild(renderer.domElement);
-    renderer.setClearColor(new THREE.Color(0,0,0.7));
+    renderer.setClearColor(0xaaaaaa);
     renderer.autoClear = false; 
 
     // Escena
@@ -70,36 +70,16 @@ function updateAspectRatio(){
 async function loadScene() {
     let material = new THREE.MeshNormalMaterial();
 
-    // Importar modelo GLTF
-    // const loaderGLTF = new GLTFLoader();
-    // loaderGLTF.load("../models/proyecto/buildings/low_buildingE.glb",
-    //     function (gltf) {
-    //         scene.add(gltf.scene);
-    //         console.log(gltf);
-    //         for(let node of gltf.scene.children){
-    //             console.log(node);
-    //             for(let mesh of node.children){
-    //                 console.log(mesh);8½¾t.¥’00
-    //                 mesh.material.metalness = 0;
-    //             }
-    //         }
-    //     }
-    // );
-
-    // loadModel("../models/proyecto/buildings/low_buildingE.glb", scene);
-
-    let m1 = scene.getObjectByName("asd")
-    // let m2 = m1.clone()
-    // m2.position.x = 20
-    console.log(m1);
+    scene.add(new THREE.AxesHelper(3));
+    scene.add(gridHelper);
 
 
     // Suelo
-    const suelo = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000, 10, 10), material);
-    suelo.rotation.x = -Math.PI / 2;
+    // const suelo = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000, 10, 10), material);
+    // suelo.rotation.x = -Math.PI / 2;
 
-    scene.add(suelo);
-    scene.add(new THREE.AxesHelper(3));
+    // scene.add(suelo);
+    // scene.add(new THREE.AxesHelper(3));
 
     // add directional light
     var hemiLight = new THREE.HemisphereLight( 0xffffff, 0x444444 );
@@ -128,10 +108,10 @@ function render() {
     renderer.clear();
     requestAnimationFrame(render);
     update();
-    const ar = window.innerWidth / window.innerHeight;
-    const minimap_size = ar > 1 ? window.innerHeight / 4 : window.innerWidth / 4;
-    renderer.setViewport(0, window.innerHeight - minimap_size, minimap_size, minimap_size);
-    renderer.render(scene, minimap);
+    // const ar = window.innerWidth / window.innerHeight;
+    // const minimap_size = ar > 1 ? window.innerHeight / 4 : window.innerWidth / 4;
+    // renderer.setViewport(0, window.innerHeight - minimap_size, minimap_size, minimap_size);
+    // renderer.render(scene, minimap);
 
     renderer.setViewport(0, 0, window.innerWidth, window.innerHeight);
     renderer.render(scene, camera);
